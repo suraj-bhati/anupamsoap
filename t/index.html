@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from anupamsoap.com/t/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 13 Jan 2025 13:58:06 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cab Laao - Ride Price Comparison</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="../../cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAne9eVGBm3TWEzUFeP7p9bqBVGf3faDEk&amp;libraries=places"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Cab Laao</h1>
+    <p>Enter Pickup and Drop-off Locations</p>
+
+    <input id="pickup" type="text" placeholder="Pickup Location">
+    <input id="drop" type="text" placeholder="Drop-off Location">
+
+    <label for="passengers">Number of Passengers:</label>
+    <input type="range" id="passengers" min="1" max="12" value="1" oninput="updatePassengerCount(this.value)">
+    <span id="passengerCount">1</span>
+
+    <label for="cabType">Cab Type:</label>
+    <div class="cab-options">
+        <div class="cab-option" onclick="selectCabType('economy')">
+            <i class="fas fa-car cab-icon"></i>
+            <p>Economy</p>
+        </div>
+        <div class="cab-option" onclick="selectCabType('premium')">
+            <i class="fas fa-taxi cab-icon"></i>
+            <p>Premium</p>
+        </div>
+        <div class="cab-option" onclick="selectCabType('suv')">
+            <i class="fas fa-shuttle-van cab-icon"></i>
+            <p>SUV</p>
+        </div>
+    </div>
+
+    <button onclick="searchRides()" class="get-rides-btn">Get Ride Prices</button>
+
+    <div id="result" class="result-section" style="display: none;">
+        <div class="tabs">
+            <div class="tab active" onclick="filterRides('all')"><i class="fas fa-list"></i> All</div>
+            <div class="tab" onclick="filterRides('ola')"><i class="fas fa-car"></i> Ola</div>
+            <div class="tab" onclick="filterRides('uber')"><i class="fab fa-uber"></i> Uber</div>
+            <div class="tab" onclick="filterRides('rapido')"><i class="fas fa-motorcycle"></i> Rapido</div>
+        </div>
+        <div id="ride-details" class="ride-details"></div>
+    </div>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/cabs/ola/ola.js"></script>
+<script src="js/cabs/uber/uber.js"></script>
+<script src="js/cabs/rapido/rapido.js"></script>
+
+<script>
+    // Initialize Google Maps Places Autocomplete
+    function initAutocomplete() {
+        const pickupInput = document.getElementById("pickup");
+        const dropInput = document.getElementById("drop");
+        
+        const pickupAutocomplete = new google.maps.places.Autocomplete(pickupInput);
+        const dropAutocomplete = new google.maps.places.Autocomplete(dropInput);
+
+        pickupAutocomplete.setFields(["geometry", "name"]);
+        dropAutocomplete.setFields(["geometry", "name"]);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initAutocomplete);
+
+    let selectedCabType = '';
+
+    function selectCabType(type) {
+        selectedCabType = type;
+        const options = document.querySelectorAll('.cab-option');
+        options.forEach(option => option.classList.remove('selected'));
+        
+        document.querySelector(`.cab-option[onclick="selectCabType('${type}')"]`).classList.add('selected');
+    }
+
+    function updatePassengerCount(value) {
+        document.getElementById("passengerCount").textContent = value;
+    }
+
+    function searchRides() {
+        const pickup = document.getElementById("pickup").value;
+        const drop = document.getElementById("drop").value;
+
+        if (!pickup || !drop) {
+            alert("Please enter both pickup and drop locations.");
+            return;
+        }
+
+        console.log(`Searching rides for Cab Type: ${selectedCabType}`);
+        convertAddressToLatLng(pickup, (pickupLat, pickupLng) => {
+            convertAddressToLatLng(drop, (dropLat, dropLng) => {
+                fetchOlaRideDetails(pickupLat, pickupLng, dropLat, dropLng); // Updated function call
+            });
+        });
+    }
+
+    function filterRides(provider) {
+        const allRides = document.querySelectorAll('.ride-option');
+        allRides.forEach(ride => {
+            if (provider === 'all' || ride.classList.contains(provider)) {
+                ride.style.display = 'block';
+            } else {
+                ride.style.display = 'none';
+            }
+        });
+    }
+</script>
+
+</body>
+
+<!-- Mirrored from anupamsoap.com/t/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 13 Jan 2025 13:58:12 GMT -->
+</html>

@@ -1,0 +1,172 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    margin-top: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Input and Slider Styles */
+input[type="text"] {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: left;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+input[type="range"] {
+    width: 80%;
+    margin: 10px 0;
+}
+
+#passengerCount {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Cab Options */
+.cab-options {
+    display: flex;
+    justify-content: space-around;
+    margin: 15px 0;
+}
+
+.cab-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.cab-option:hover {
+    background-color: #f0f0f0;
+}
+
+.cab-option.selected {
+    background-color: #e0e0ff;
+}
+
+.cab-icon {
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+/* Get Rides Button */
+.get-rides-btn {
+    padding: 12px 25px;
+    margin-top: 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.get-rides-btn:hover {
+    background-color: #218838;
+}
+
+/* Tabs and Ride Details */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 25px;
+    background-color: #f2f2f2;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.tab i {
+    margin-right: 8px;
+}
+
+.tab:hover, .tab.active {
+    background-color: #e0e0ff;
+    color: #000;
+}
+
+/* Ride Details Box */
+.ride-details {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ride-item {
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ride-item .ride-info {
+    display: flex;
+    align-items: center;
+}
+
+.ride-item i {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.ride-item .price {
+    font-weight: bold;
+    color: #333;
+}
+
+.ride-item .vehicle-type {
+    font-size: 14px;
+    color: #666;
+}
